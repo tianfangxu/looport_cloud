@@ -1,0 +1,28 @@
+server:
+  port: 30001
+spring:
+  application:
+    name: manageservice
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/looport?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password:
+    type: com.alibaba.druid.pool.DruidDataSource
+    filters: stat,wall,log4j
+    initalSize: 5
+    maxActive: 10
+    maxWait: 60000
+
+mybatis:
+
+  type-aliases-package: com.yollweb.looport.entity
+  mapperLocations: classpath:/mapper/**/*.xml
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:7001/eureka/
+  instance:
+    instance-id: manageservice
+    prefer-ip-address: true     #访问路径可以显示IP地址

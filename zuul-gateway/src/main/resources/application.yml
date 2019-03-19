@@ -1,0 +1,20 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: zuu-gateway
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:7001/eureka/
+  instance:
+    instance-id: gateway9527
+    prefer-ip-address: true
+
+zuul:
+  #prefix: /looport    #所有访问路径前缀
+  ignored-services: "*"   #忽略所有访问路径名称，只能访问制定的路径名称
+  routes:
+    mydept.serviceId: manageservice
+    mydept.path: /user/**
