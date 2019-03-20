@@ -21,13 +21,12 @@ public class LoginController {
     AcctUserService acctUserService;
 
     @RequestMapping("all")
-    //@HystrixCommand(fallbackMethod = "getErrorBack") //一旦调用服务方法失败并抛出了错误信息后，会自动调用@HystrixCommand标注好的fallbackMethod调用类中的指定方法
     public ResultModel getAll(){
         return acctUserService.getAll();
     }
 
     @RequestMapping("login")
-    @HystrixCommand(fallbackMethod = "getErrorBack")
+    @HystrixCommand(fallbackMethod = "getErrorBack")//一旦调用服务方法失败并抛出了错误信息后，会自动调用@HystrixCommand标注好的fallbackMethod调用类中的指定方法
     public ResultModel login(@RequestBody UserModel model){
         return acctUserService.login(model);
     }
