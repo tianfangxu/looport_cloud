@@ -1,5 +1,6 @@
 package com.yollweb.looport.service.impl;
 
+import com.yollweb.looport.content.CodeState;
 import com.yollweb.looport.content.ResultModel;
 import com.yollweb.looport.dao.AcctUserMapper;
 import com.yollweb.looport.entity.AcctUserEntity;
@@ -23,7 +24,7 @@ public class AcctUserServiceImpl implements AcctUserService {
         List<AcctUserEntity> acctUserEntities = userMapper.queryAll();
         ResultModel rm = new ResultModel();
         rm.setSuccess(true);
-        rm.setStatus(200);
+        rm.setCode(CodeState.MANAGE_SUCCESS);
         rm.setResult(acctUserEntities);
         rm.setMsg("操作成功");
         return rm;
@@ -35,7 +36,7 @@ public class AcctUserServiceImpl implements AcctUserService {
         List<AcctUserEntity> list = userMapper.login(model.getName(), model.getPassword());
         if (list != null && list.size() == 1){
             rm.setSuccess(true);
-            rm.setStatus(200);
+            rm.setCode(CodeState.MANAGE_SUCCESS);
             rm.setResult(list.get(0));
             rm.setMsg("操作成功");
             return rm;

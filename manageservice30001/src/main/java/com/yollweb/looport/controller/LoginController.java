@@ -1,6 +1,7 @@
 package com.yollweb.looport.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.yollweb.looport.content.CodeState;
 import com.yollweb.looport.content.ResultModel;
 import com.yollweb.looport.entity.AcctUserEntity;
 import com.yollweb.looport.process.request.UserModel;
@@ -26,14 +27,14 @@ public class LoginController {
     }
 
     @RequestMapping("login")
-    //@HystrixCommand(fallbackMethod = "getErrorBack") //一旦调用服务方法失败并抛出了错误信息后，会自动调用@HystrixCommand标注好的fallbackMethod调用类中的指定方法
+    @HystrixCommand(fallbackMethod = "getErrorBack")
     public ResultModel login(@RequestBody UserModel model){
         return acctUserService.login(model);
     }
 
     public ResultModel getErrorBack(){
         ResultModel resultModel = new ResultModel();
-        resultModel.setMsg("服务出错，请稍后重试");
+        resultModel.setMsg("服务出错，请稍后重试").setCode(CodeState.MANAGE_ERROR);
         return resultModel;
     }
 

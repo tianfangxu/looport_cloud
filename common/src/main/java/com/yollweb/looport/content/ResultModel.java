@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain=true)  //链式
 public class ResultModel {
 
-    private int status = 400;
+    private int code;
     private boolean success = false;
     private String msg;
     private Object result;
