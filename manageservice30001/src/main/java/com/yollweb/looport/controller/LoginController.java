@@ -32,7 +32,7 @@ public class LoginController {
         return acctUserService.login(model);
     }
 
-    public ResultModel getErrorBack(){
+    public ResultModel getErrorBack(UserModel model){
         ResultModel resultModel = new ResultModel();
         resultModel.setMsg("服务出错，请稍后重试").setCode(CodeState.MANAGE_ERROR);
         return resultModel;

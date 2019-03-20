@@ -15,4 +15,5 @@ public class AcctUserEntity {
     private String nike;
     private String name;
     private String password;
+    private String roleid;
 }
