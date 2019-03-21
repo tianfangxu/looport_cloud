@@ -7,7 +7,18 @@
     </select>
 
     <select id="login" resultType="AcctUserEntity" parameterType="java.lang.String">
-        select * from acct_user where name=#{name} and password=#{password}
+        select * from acct_user where name=#{name} and password=#{password} and flag = '0'
+    </select>
+    
+    <insert id="saveUser" keyProperty="id" parameterType="com.yollweb.looport.entity.AcctUserEntity">
+        insert into acct_user
+        (id,nike,name,password,roleid,createname,createuser,createtime,flag) values
+        (#{model.id},#{model.nike},#{model.name},#{model.password},#{model.roleid},#{model.createname},
+          #{model.createuser},#{model.createtime},#{model.flag})
+    </insert>
+
+    <select id="queryByname" resultType="AcctUserEntity" parameterType="java.lang.String">
+        select * from acct_user where name=#{name}
     </select>
 
 </mapper>

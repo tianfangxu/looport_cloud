@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor //有参构造
 @Data               //get\set
 @Accessors(chain=true)  //链式
-public class UserModel {
+public class LoginUserModel {
 
     private String name;
     private String password;

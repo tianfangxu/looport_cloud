@@ -1,7 +1,7 @@
 package com.yollweb.looport.service;
 
 import com.yollweb.looport.content.ResultModel;
-import com.yollweb.looport.process.request.UserModel;
+import com.yollweb.looport.process.request.LoginUserModel;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,5 +13,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface AcctUserFeignService {
 
     @RequestMapping("login")
-    public ResultModel login(@RequestBody UserModel model);
+    public ResultModel login(@RequestBody LoginUserModel model);
 }

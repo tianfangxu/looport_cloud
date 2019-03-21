@@ -3,9 +3,11 @@ package com.yollweb.looport.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
+@Component
 public class CORSFilter extends ZuulFilter {
 
     /*
@@ -21,16 +23,19 @@ public class CORSFilter extends ZuulFilter {
 
     @Override
     public int filterOrder() {
-        return 0;
+        return 1;           // 顺序设置为1,数据越大，优先级越高
     }
 
     @Override
     public boolean shouldFilter() {
-        return false;
+        return true;        //true:过滤器才会生效
     }
 
     @Override
     public Object run() {
+        RequestContext currentContext = RequestContext.getCurrentContext();
+        HttpServletRequest request = currentContext.getRequest();
+        System.out.println("------------"+request.getRequestURI());
         return null;
     }
 }

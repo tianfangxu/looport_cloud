@@ -1,18 +1,20 @@
 package com.yollweb.looport.redis;
 
+import com.google.gson.Gson;
+import com.yollweb.looport.entity.AcctUserEntity;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 @Component
-public class RedisUtil {
+public class RedisUtil<T> {
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
@@ -43,6 +45,21 @@ public class RedisUtil {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public void setIntoParam(String token,T model){
+        String result = getCache(token);
+        AcctUserEntity userEntity = new Gson().fromJson(result, AcctUserEntity.class);
+        try{
+            Class aClass = model.getClass();
+            Method[] methods = aClass.getDeclaredMethods();
+            for(Method method:methods){
+                System.out.println(method.getName());
+            }
+            Method method = aClass.getDeclaredMethod("setUserEntity", AcctUserEntity.class);
+            Object invoke = method.invoke(model, userEntity);
+            System.out.println(model);
+        }catch (Exception e){}
     }
 
     //=============================common============================
@@ -163,7 +180,7 @@ public class RedisUtil {
      * 递增
      *
      * @param key 键
-     * @param by  要增加几(大于0)
+     * @param  delta 要增加几(大于0)
      * @return
      */
     public long incr(String key, long delta) {
@@ -177,7 +194,7 @@ public class RedisUtil {
      * 递减
      *
      * @param key 键
-     * @param by  要减少几(小于0)
+     * @param  delta 要减少几(小于0)
      * @return
      */
     public long decr(String key, long delta) {
@@ -487,7 +504,7 @@ public class RedisUtil {
      *
      * @param key   键
      * @param value 值
-     * @param time  时间(秒)
+     * @param value  时间(秒)
      * @return
      */
     public boolean lSet(String key, Object value) {
@@ -524,7 +541,7 @@ public class RedisUtil {
      *
      * @param key   键
      * @param value 值
-     * @param time  时间(秒)
+     * @param value  时间(秒)
      * @return
      */
     public boolean lSet(String key, List<Object> value) {

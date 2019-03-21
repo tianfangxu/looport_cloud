@@ -13,4 +13,8 @@ public interface AcctUserMapper {
 
     List<AcctUserEntity> login(@Param("name")String name,@Param("password")String password);
 
+    List<AcctUserEntity> queryByname(@Param("name")String name);
+
+    int saveUser(@Param("model")AcctUserEntity entity);
+
 }
