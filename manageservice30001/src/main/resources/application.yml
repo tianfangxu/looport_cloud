@@ -7,7 +7,7 @@ spring:
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/looport?useUnicode=true&characterEncoding=utf-8
     username: root
-    password: jhdz
+    password:
     type: com.alibaba.druid.pool.DruidDataSource
     filters: stat,wall,log4j
     initalSize: 5
@@ -32,11 +32,6 @@ mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-pagehelper:
-  helperDialect: mysql
-  reasonable: false
-  supportMethodsArguments: false
-  params: count=countSql
 
 eureka:
   client:
