@@ -31,12 +31,19 @@ public class AcctUserServiceImpl implements AcctUserService {
     RedisUtil redisUtil;
 
     @Override
-    public ResultModel getAll() {
-        List<AcctUserEntity> acctUserEntities = userMapper.queryAll();
+    public ResultModel getAll(LoginUserModel model) {
         ResultModel rm = new ResultModel();
+        if (model.getUserEntity() == null){
+            rm.setMsg("登陆过期啦，快去登陆哟~").setCode(CodeState.MANAGE_ERROR);
+            return rm;
+        }
+        model.setPage((model.getPage()-1) * model.getRows());
+        List<AcctUserEntity> acctUserEntities = userMapper.queryAll(model);
+        int count = userMapper.queryCount(model);
         rm.setSuccess(true);
         rm.setCode(CodeState.MANAGE_SUCCESS);
         rm.setResult(acctUserEntities);
+        rm.setTotal(count);
         rm.setMsg("操作成功");
         return rm;
     }

@@ -5,7 +5,7 @@ import com.yollweb.looport.process.request.LoginUserModel;
 import com.yollweb.looport.process.request.SaveUserModel;
 
 public interface AcctUserService {
-    ResultModel getAll();
+    ResultModel getAll(LoginUserModel model);
 
     ResultModel login(LoginUserModel model);
 

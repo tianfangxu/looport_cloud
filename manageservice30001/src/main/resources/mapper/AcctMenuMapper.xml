@@ -2,6 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yollweb.looport.dao.AcctMenuMapper">
 
+    <select id="queryAll" resultType="AcctMenuEntity" parameterType="com.yollweb.looport.process.request.QueryMenuModel">
+        select * from acct_menu t where id is not null
+        <if test="model.level != null and '' != model.level">
+          and level = #{model.level}
+        </if>
+        <if test="model.pid != null and '' != model.pid">
+            and pid = #{model.pid}
+        </if>
+        <if test="model.pid == null or '' == model.pid">
+            and pid = '0000'
+        </if>
+        order by t.order
+        limit #{model.page},#{model.rows}
+    </select>
 
+    <select id="queryAllCount" resultType="java.lang.Integer" parameterType="com.yollweb.looport.process.request.QueryMenuModel">
+        select count(1) from acct_menu where id is not null
+        <if test="model.level != null and '' != model.level">
+            and level = #{model.level}
+        </if>
+        <if test="model.pid != null and '' != model.pid">
+            and pid = #{model.pid}
+        </if>
+        <if test="model.pid == null or '' == model.pid">
+            and pid = '0000'
+        </if>
+    </select>
 
+    <update id="updateMethods" parameterType="com.yollweb.looport.process.request.QueryMenuModel">
+        update acct_menu set methods = #{model.methods} where id = #{model.id}
+    </update>
+
+    <insert id="addMenu" parameterType="com.yollweb.looport.process.request.QueryMenuModel">
+      insert into acct_menu values
+      (#{model.id},#{model.name},#{model.order},#{model.pid},#{model.level},#{model.methods})
+    </insert>
+
+    <delete id="deleteMenuById" parameterType="com.yollweb.looport.process.request.QueryMenuModel">
+        delete from acct_menu where id = #{model.id}
+    </delete>
+
+    <delete id="deleteMenuByPid" parameterType="com.yollweb.looport.process.request.QueryMenuModel">
+        delete from acct_menu where pid = #{model.id}
+    </delete>
 </mapper>

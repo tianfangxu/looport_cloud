@@ -16,6 +16,7 @@ public class AcctUserEntity extends BaseEntity {
     private String nike;
     private String name;
     private String password;
-    private String roleid;
+
+    private String roleid;  //权限id
 
 }

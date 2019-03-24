@@ -15,4 +15,5 @@ public class ResultModel {
     private boolean success = false;
     private String msg;
     private Object result;
+    private int total;
 }

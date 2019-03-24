@@ -10,10 +10,14 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor //有参构造
 @Data               //get\set
 @Accessors(chain=true)  //链式
-public class LoginUserModel {
+public class QueryMenuModel {
 
+    private String id;
     private String name;
-    private String password;
+    private String order;
+    private String pid;
+    private String level;
+    private String methods;
     private int page;
     private int rows;
     private AcctUserEntity userEntity;

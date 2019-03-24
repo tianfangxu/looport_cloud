@@ -24,20 +24,20 @@ public class LoginController {
     RedisUtil redisUtil;
 
     @RequestMapping("all")
-    @HystrixCommand(defaultFallback = "getErrorBack")
-    public ResultModel getAll(){
-        return acctUserService.getAll();
+    //@HystrixCommand(defaultFallback = "getErrorBack")
+    public ResultModel getAll(HttpServletRequest request, @RequestBody LoginUserModel model){
+        redisUtil.setIntoParam(request.getHeader(CodeState.SESSIONID),model);
+        return acctUserService.getAll(model);
     }
 
     @RequestMapping("login")
-    @HystrixCommand(defaultFallback = "getErrorBack")//一旦调用服务方法失败并抛出了错误信息后，会自动调用@HystrixCommand标注好的fallbackMethod调用类中的指定方法
+    //@HystrixCommand(defaultFallback = "getErrorBack")//一旦调用服务方法失败并抛出了错误信息后，会自动调用@HystrixCommand标注好的fallbackMethod调用类中的指定方法
     public ResultModel login(HttpServletRequest request, @RequestBody LoginUserModel model){
-        System.out.println(request.getAttribute("user"));
         return acctUserService.login(model);
     }
 
     @RequestMapping("save")
-    @HystrixCommand(defaultFallback = "getErrorBack")
+    //@HystrixCommand(defaultFallback = "getErrorBack")
     public ResultModel save(HttpServletRequest request, @RequestBody SaveUserModel model){
         redisUtil.setIntoParam(request.getHeader(CodeState.SESSIONID),model);
         return acctUserService.saveUser(model);

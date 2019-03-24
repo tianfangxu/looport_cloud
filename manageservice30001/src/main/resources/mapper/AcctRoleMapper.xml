@@ -2,6 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yollweb.looport.dao.AcctRoleMapper">
 
+    <select id="queryAll" resultType="AcctRoleEntity" parameterType="com.yollweb.looport.process.request.QueryRoleModel">
+        select * from acct_role where id is not null
+        <if test="model.id != null and model.id != ''" >
+            and id = #{model.id}
+        </if>
+        limit #{model.page},#{model.rows}
+    </select>
 
+    <select id="queryCount" resultType="java.lang.Integer" parameterType="com.yollweb.looport.process.request.QueryRoleModel">
+        select count(1) from acct_role where id is not null
+        <if test="model.id != null and model.id != ''" >
+            and id = #{model.id}
+        </if>
+    </select>
+    
+    <insert id="addRole" parameterType="com.yollweb.looport.process.request.QueryRoleModel">
+      insert into acct_role values
+      (#{model.id},#{model.name},#{model.menuid})
+    </insert>
 
 </mapper>

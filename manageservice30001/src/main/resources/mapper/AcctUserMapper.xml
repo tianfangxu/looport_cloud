@@ -2,8 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yollweb.looport.dao.AcctUserMapper">
 
-    <select id="queryAll" resultType="AcctUserEntity">
-        select * from acct_user
+    <select id="queryAll" resultType="AcctUserEntity" parameterType="com.yollweb.looport.process.request.LoginUserModel">
+        select * from acct_user where flag = '0'
+        <if test="model.name != null and '' != model.name">
+            and nike like '%${model.name}%'
+        </if>
+        order by createtime desc
+        limit #{model.page},#{model.rows}
+    </select>
+
+    <select id="queryCount" resultType="java.lang.Integer" parameterType="com.yollweb.looport.process.request.LoginUserModel">
+        select count(1) from acct_user where flag = '0'
+        <if test="model.name != null and '' != model.name">
+            and nike like '%${model.name}%'
+        </if>
     </select>
 
     <select id="login" resultType="AcctUserEntity" parameterType="java.lang.String">

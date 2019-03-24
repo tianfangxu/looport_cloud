@@ -8,12 +8,13 @@ import lombok.experimental.Accessors;
 
 @NoArgsConstructor  //无参构造
 @AllArgsConstructor //有参构造
-@Data               //get\set
+@Data
 @Accessors(chain=true)  //链式
-public class LoginUserModel {
+public class QueryRoleModel {
 
+    private String id;
     private String name;
-    private String password;
+    private String menuid;
     private int page;
     private int rows;
     private AcctUserEntity userEntity;

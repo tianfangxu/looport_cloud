@@ -10,6 +10,7 @@ import java.util.List;
 
 @NoArgsConstructor  //无参构造
 @AllArgsConstructor //有参构造
+@Data
 @Accessors(chain=true)  //链式
 public class AcctRoleEntity {
 
@@ -17,32 +18,22 @@ public class AcctRoleEntity {
     private String name;
     private String menuid;
 
-    public void setMenuid(List list){
-        Gson gson = new Gson();
-        this.menuid= gson.toJson(list);
-    }
-
-    public void setMenuid(String menuid){
-        this.menuid= menuid;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getMenuid() {
-        return menuid;
-    }
+    //[
+    //    {
+    //        "id": "0001",
+    //        "name": "系统",
+    //        "methods": [
+    //            {
+    //                "name": "查询",
+    //                "code": "query",
+    //                "enable": true
+    //            },
+    //            {
+    //                "name": "删除",
+    //                "code": "delete",
+    //                "enable": false
+    //            }
+    //        ]
+    //    }
+    //]
 }
