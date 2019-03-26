@@ -23,4 +23,9 @@ public class RoleController {
     public ResultModel roladdRoleeAll(@RequestBody QueryRoleModel model){
         return acctRoleService.addRole(model);
     }
+
+    @RequestMapping("updateRole")
+    public ResultModel updateRole(@RequestBody QueryRoleModel model){
+        return acctRoleService.updateRole(model);
+    }
 }

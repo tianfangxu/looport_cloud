@@ -7,4 +7,6 @@ public interface AcctRoleService {
     ResultModel roleAll(QueryRoleModel model);
 
     ResultModel addRole(QueryRoleModel model);
+
+    ResultModel updateRole(QueryRoleModel model);
 }

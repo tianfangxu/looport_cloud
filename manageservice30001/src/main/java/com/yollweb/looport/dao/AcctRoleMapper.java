@@ -16,4 +16,6 @@ public interface AcctRoleMapper {
 
     int addRole(@Param("model") QueryRoleModel model);
 
+    int updateRole(@Param("model") QueryRoleModel model);
+
 }

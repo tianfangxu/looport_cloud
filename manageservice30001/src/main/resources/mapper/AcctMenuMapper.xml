@@ -46,4 +46,18 @@
     <delete id="deleteMenuByPid" parameterType="com.yollweb.looport.process.request.QueryMenuModel">
         delete from acct_menu where pid = #{model.id}
     </delete>
+
+    <select id="menuforData" resultType="AcctMenuEntity" parameterType="com.yollweb.looport.process.request.QueryMenuModel">
+        select * from acct_menu t where id is not null
+        <if test="model.level != null and '' != model.level">
+            and level = #{model.level}
+        </if>
+        <if test="model.pid != null and '' != model.pid">
+            and pid = #{model.pid}
+        </if>
+        <if test="model.pid == null or '' == model.pid">
+            and pid = '0000'
+        </if>
+        order by t.order
+    </select>
 </mapper>

@@ -34,4 +34,9 @@ public class MenuController {
         return acctMenuService.deleteMenu(model);
     }
 
+    @RequestMapping("menuforData")
+    public ResultModel menuforData(@RequestBody QueryMenuModel model){
+        return acctMenuService.menuforData(model);
+    }
+
 }

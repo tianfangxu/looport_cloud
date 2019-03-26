@@ -11,4 +11,6 @@ public interface AcctMenuService {
     ResultModel addMenu(QueryMenuModel model);
 
     ResultModel deleteMenu(QueryMenuModel model);
+
+    ResultModel menuforData(QueryMenuModel model);
 }

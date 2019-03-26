@@ -44,4 +44,14 @@ public class AcctRoleServiceImpl implements AcctRoleService {
         resultModel.setMsg("操作成功");
         return resultModel;
     }
+
+    @Override
+    public ResultModel updateRole(QueryRoleModel model) {
+        ResultModel resultModel = new ResultModel();
+        acctRoleMapper.updateRole(model);
+        resultModel.setSuccess(true);
+        resultModel.setCode(CodeState.MANAGE_SUCCESS);
+        resultModel.setMsg("操作成功");
+        return resultModel;
+    }
 }

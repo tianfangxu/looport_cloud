@@ -22,4 +22,8 @@
       (#{model.id},#{model.name},#{model.menuid})
     </insert>
 
+    <update id="updateRole" parameterType="com.yollweb.looport.process.request.QueryRoleModel">
+        update acct_role set name = #{model.name},menuid=#{model.menuid} where id = #{model.id}
+    </update>
+
 </mapper>

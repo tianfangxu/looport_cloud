@@ -1,5 +1,6 @@
 package com.yollweb.looport.service.impl;
 
+import com.google.gson.Gson;
 import com.yollweb.looport.content.CodeState;
 import com.yollweb.looport.content.ResultModel;
 import com.yollweb.looport.dao.AcctMenuMapper;
@@ -14,7 +15,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -94,6 +97,66 @@ public class AcctMenuServiceImpl implements AcctMenuService {
             acctMenuMapper.deleteMenuById(model);
             acctMenuMapper.deleteMenuByPid(model);
         }
+        resultModel.setSuccess(true);
+        resultModel.setCode(CodeState.MANAGE_SUCCESS);
+        resultModel.setMsg("操作成功");
+        return resultModel;
+    }
+
+    @Override
+    public ResultModel menuforData(QueryMenuModel model) {
+        ResultModel resultModel = new ResultModel();
+        ArrayList res = new  ArrayList();
+        Gson gson = new Gson();
+        //先查出所有1级菜单
+        model.setLevel("1");
+        List<AcctMenuEntity> list = acctMenuMapper.menuforData(model);
+
+        //查出1级菜单下所有2级菜单
+        QueryMenuModel queryMenuModel = new QueryMenuModel();
+        for (AcctMenuEntity entity:list) {
+            Map map = new HashMap();
+            map.put("id",entity.getId());
+            map.put("lable",entity.getName());
+            ArrayList reschrild = new  ArrayList();
+            String methods = entity.getMethods();
+            List listMethods = gson.fromJson(methods, List.class);
+            if(listMethods != null && listMethods.size() != 0){
+                for (Object o :listMethods){
+                    Map mapchrild = new HashMap();
+                    Map tempMap = gson.fromJson(gson.toJson(o), Map.class);
+                    mapchrild.put("id",tempMap.get("code"));
+                    mapchrild.put("lable",tempMap.get("name"));
+                    reschrild.add(mapchrild);
+                }
+            }
+            queryMenuModel.setPid(entity.getId());
+            List<AcctMenuEntity> tempList = acctMenuMapper.menuforData(queryMenuModel);
+            if(tempList != null && tempList.size() != 0){
+                for(AcctMenuEntity te : tempList){
+                    Map mapsconed = new HashMap();
+                    mapsconed.put("id",te.getId());
+                    mapsconed.put("lable",te.getName());
+                    ArrayList ressconedchrild = new  ArrayList();
+                    String sconedmethods = te.getMethods();
+                    List listSconedMethods = gson.fromJson(sconedmethods, List.class);
+                    if(listSconedMethods != null && listSconedMethods.size() != 0){
+                        for (Object o :listSconedMethods){
+                            Map mapchrild = new HashMap();
+                            Map tempMap = gson.fromJson(gson.toJson(o), Map.class);
+                            mapchrild.put("id",tempMap.get("code"));
+                            mapchrild.put("lable",tempMap.get("name"));
+                            ressconedchrild.add(mapchrild);
+                        }
+                    }
+                    mapsconed.put("children",ressconedchrild);
+                    reschrild.add(mapsconed);
+                }
+            }
+            map.put("children",reschrild);
+            res.add(map);
+        }
+        resultModel.setResult(res);
         resultModel.setSuccess(true);
         resultModel.setCode(CodeState.MANAGE_SUCCESS);
         resultModel.setMsg("操作成功");

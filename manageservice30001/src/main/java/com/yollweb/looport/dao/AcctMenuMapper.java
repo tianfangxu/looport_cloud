@@ -12,6 +12,8 @@ public interface AcctMenuMapper {
 
     List<AcctMenuEntity> queryAll(@Param("model") QueryMenuModel model);
 
+    List<AcctMenuEntity> menuforData(@Param("model") QueryMenuModel model);
+
     Integer queryAllCount(@Param("model") QueryMenuModel model);
 
     Integer updateMethods(@Param("model") QueryMenuModel model);
